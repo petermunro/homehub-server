@@ -1,0 +1,50 @@
+type Query {
+  system: System!
+  accessories(offset: Int!, limit: Int!): [Accessory]!
+}
+
+type Mutation {
+  setHubname(name: String!): String!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type System {
+  hello: String
+  uptime: String!
+  uptimeDelayed: String!
+  hubname: String!
+}
+
+interface Accessory {
+  id: ID!
+  name: String!
+}
+
+type Light implements Accessory {
+  id: ID!
+  name: String!
+  brightnessLevel: Int!
+}
+
+type Door implements Accessory {
+  id: ID!
+  name: String!
+  isClosed: Boolean!
+  isLocked: Boolean!
+}
+
+type Thermostat implements Accessory {
+  id: ID!
+  name: String!
+  temperature: Float!
+}
+
+type Outlet implements Accessory {
+  id: ID!
+  name: String!
+  isOn: Boolean!
+}
