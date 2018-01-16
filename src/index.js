@@ -36,7 +36,6 @@ let resolvers = {
       return moment.duration(os.uptime(), "seconds").format("h [hrs], m [min]");
     },
     hello(obj) {
-      console.log("obj:", obj);
       return obj.hello + " from resolver";
     },
     uptimeDelayed() {
@@ -49,7 +48,6 @@ let resolvers = {
   },
   Mutation: {
     setHubname(_, { name }) {
-      console.log("Name:", name);
       db.hubname = name;
       return db.hubname;
     }
@@ -62,8 +60,10 @@ let corsOptions = {
   origin: "http://localhost:3000"
 };
 
+const PORT = 4001;
+
 let app = express();
 app.use(cors(corsOptions));
 app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
 app.use("/graphiql", graphiqlExpress({ endpointURL: "/graphql" }));
-app.listen(4001, () => console.log("Now browse to localhost:4000/graphiql"));
+app.listen(PORT, () => console.log(`Now browse to localhost:${PORT}/graphiql`));
