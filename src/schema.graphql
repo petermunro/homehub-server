@@ -5,6 +5,12 @@ type Query {
 
 type Mutation {
   setHubname(name: String!): String!
+  addLight(light: LightInput!): Light!
+}
+
+input LightInput {
+  name: String!
+  manufacturer: String!
 }
 
 schema {
@@ -28,6 +34,7 @@ type Light implements Accessory {
   id: ID!
   name: String!
   brightnessLevel: Int!
+  manufacturer: String!
 }
 
 type Door implements Accessory {

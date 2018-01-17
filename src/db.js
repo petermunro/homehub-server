@@ -2,7 +2,13 @@ let db = {
   hubname: "untitled hub",
   bootTime: new Date().toString(),
   accessories: [
-    { id: 1, _type: "Light", name: "Hall Light", brightnessLevel: 100 },
+    {
+      id: 1,
+      _type: "Light",
+      name: "Hall Light",
+      brightnessLevel: 100,
+      manufacturer: "Philips"
+    },
     {
       id: 2,
       _type: "Door",

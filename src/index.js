@@ -22,7 +22,7 @@ let resolvers = {
       };
     },
     accessories(_, { offset, limit }) {
-      console.log("offset:", offset, "limit:", limit);
+      // offset and limit left as an exercise for the reader
       return db.accessories;
     }
   },
@@ -50,6 +50,16 @@ let resolvers = {
     setHubname(_, { name }) {
       db.hubname = name;
       return db.hubname;
+    },
+    addLight(_, { light }) {
+      db.accessories.push({
+        id: db.accessories.length + 1,
+        _type: "Light",
+        name: light.name,
+        brightnessLevel: 0,
+        manufacturer: light.manufacturer
+      });
+      return db.accessories[db.accessories.length - 1];
     }
   }
 };
