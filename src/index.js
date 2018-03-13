@@ -49,7 +49,10 @@ let resolvers = {
   Mutation: {
     setHubname(_, { name }) {
       db.hubname = name;
-      return db.hubname;
+      return {
+        hello: "worldsys",
+        hubname: db.hubname
+      };
     },
     addLight(_, { light }) {
       db.accessories.push({
