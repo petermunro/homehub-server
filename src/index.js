@@ -17,12 +17,15 @@ let resolvers = {
   Query: {
     system: () => {
       return {
-        hello: "worldsys",
+        hello: null,
         hubname: db.hubname
       };
     },
-    accessories(_, { offset, limit }) {
+    accessories(_, { offset, limit, type }) {
       // offset and limit left as an exercise for the reader
+      if (type) {
+        return db.accessories.filter(accessory => accessory._type === type);
+      }
       return db.accessories;
     }
   },
@@ -36,7 +39,7 @@ let resolvers = {
       return moment.duration(os.uptime(), "seconds").format("h [hrs], m [min]");
     },
     hello(obj) {
-      return obj.hello + " from resolver";
+      return obj.hello;
     },
     uptimeDelayed() {
       return new Promise((resolve, reject) => {
@@ -69,8 +72,9 @@ let resolvers = {
 
 let schema = makeExecutableSchema({ typeDefs, resolvers });
 
+const ALLOW_CLIENT_PORT = process.env.ALLOW_CLIENT_PORT || 3000;
 let corsOptions = {
-  origin: "http://localhost:3000"
+  origin: `http://localhost:${ALLOW_CLIENT_PORT}`
 };
 
 const PORT = process.env.PORT || 4001;

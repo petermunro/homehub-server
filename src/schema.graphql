@@ -1,6 +1,11 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
 type Query {
   system: System!
-  accessories(offset: Int!, limit: Int!): [Accessory]!
+  accessories(offset: Int, limit: Int, type: String): [Accessory]!
 }
 
 type Mutation {
@@ -13,13 +18,10 @@ input LightInput {
   manufacturer: String!
 }
 
-schema {
-  query: Query
-  mutation: Mutation
-}
-
 type System {
+  "A 'hello world' field"
   hello: String
+  "Returns the uptime of this server/hub"
   uptime: String!
   uptimeDelayed: String!
   hubname: String!
@@ -29,6 +31,8 @@ interface Accessory {
   id: ID!
   name: String!
 }
+
+# union Accessory = Light | Door | Thermostat | Outlet
 
 type Light implements Accessory {
   id: ID!
